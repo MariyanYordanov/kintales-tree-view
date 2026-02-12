@@ -1,0 +1,67 @@
+{
+  "name": "@kintales/tree-view",
+  "version": "0.1.0",
+  "description": "A React Native family tree visualization library built on react-native-svg",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-native": ">=0.72.0",
+    "react-native-gesture-handler": ">=2.12.0",
+    "react-native-reanimated": ">=3.3.0",
+    "react-native-svg": ">=13.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/react-native": "^12.4.0",
+    "@types/react": "^18.2.0",
+    "@types/react-native": "^0.72.0",
+    "react": "^18.2.0",
+    "react-native": "^0.72.0",
+    "react-native-gesture-handler": "^2.14.0",
+    "react-native-reanimated": "^3.6.0",
+    "react-native-svg": "^14.1.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.2.0"
+  },
+  "keywords": [
+    "react-native",
+    "family-tree",
+    "genealogy",
+    "tree-view",
+    "svg",
+    "visualization"
+  ],
+  "author": "KinTales",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MariyanYordanov/kintales-tree-view.git"
+  },
+  "homepage": "https://github.com/MariyanYordanov/kintales-tree-view#readme",
+  "bugs": {
+    "url": "https://github.com/MariyanYordanov/kintales-tree-view/issues"
+  }
+}
