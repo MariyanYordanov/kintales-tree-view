@@ -3,6 +3,7 @@ import type { FamilyTreeProps } from './types';
 import { computeLayout } from './layout/familyLayout';
 import { resolveTheme } from './themes';
 import { TreeCanvas } from './components/TreeCanvas';
+import type { PanZoomConfig } from './gestures/usePanZoom';
 
 /**
  * Main FamilyTree component.
@@ -29,6 +30,13 @@ export function FamilyTree({
   photoShape = 'circle',
   deceasedStyle = 'none',
 
+  // Gestures
+  enablePan = true,
+  enableZoom = true,
+  minZoom = 0.3,
+  maxZoom = 3.0,
+  initialZoom = 1.0,
+
   // Advanced
   renderNode,
   renderEdge,
@@ -49,6 +57,17 @@ export function FamilyTree({
     [people, relationships, rootId, nodeWidth, nodeHeight, horizontalSpacing, verticalSpacing],
   );
 
+  const gestureConfig: PanZoomConfig = useMemo(
+    () => ({
+      enablePan,
+      enableZoom,
+      minZoom,
+      maxZoom,
+      initialZoom,
+    }),
+    [enablePan, enableZoom, minZoom, maxZoom, initialZoom],
+  );
+
   return (
     <TreeCanvas
       layout={layout}
@@ -63,6 +82,7 @@ export function FamilyTree({
       onPersonLongPress={onPersonLongPress}
       renderNode={renderNode}
       renderEdge={renderEdge}
+      gestureConfig={gestureConfig}
     />
   );
 }
