@@ -1,16 +1,17 @@
 import { describe, it, expect } from 'vitest';
-import { findTappedNode } from '../../src/gestures/useTapGesture';
+import { findTappedNode, type TapContext } from '../../src/gestures/useTapGesture';
 import type { LayoutNode } from '../../src/layout/types';
+import type { SharedValue } from 'react-native-reanimated';
 
-// Mock shared values (simple objects with .value)
-function mockSharedValue(val: number) {
-  return { value: val };
+/** Minimal SharedValue mock — only `.value` is used by findTappedNode. */
+function mockSharedValue(val: number): SharedValue<number> {
+  return { value: val } as SharedValue<number>;
 }
 
 function makeContext(
   nodes: LayoutNode[],
   opts: { translateX?: number; translateY?: number; scale?: number } = {},
-) {
+): TapContext {
   return {
     nodes,
     nodeWidth: 120,

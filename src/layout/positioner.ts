@@ -179,9 +179,11 @@ export function calculatePositions(
   if (allPositions.length > 0) {
     const minX = Math.min(...allPositions.map((p) => p.x));
     const minY = Math.min(...allPositions.map((p) => p.y));
-    for (const pos of allPositions) {
-      pos.x -= minX;
-      pos.y -= minY;
+    if (Number.isFinite(minX) && Number.isFinite(minY)) {
+      for (const pos of allPositions) {
+        pos.x -= minX;
+        pos.y -= minY;
+      }
     }
   }
 

@@ -3,7 +3,7 @@ import type { Person } from '../types';
 import type { LayoutNode } from '../layout/types';
 import type { PanZoomState } from './usePanZoom';
 
-interface TapContext {
+export interface TapContext {
   nodes: LayoutNode[];
   nodeWidth: number;
   nodeHeight: number;

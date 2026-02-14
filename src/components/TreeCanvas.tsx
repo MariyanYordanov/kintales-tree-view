@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { StyleSheet, type LayoutChangeEvent } from 'react-native';
 import Svg, { G } from 'react-native-svg';
-import { GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedStyle,
   useAnimatedReaction,
@@ -152,30 +152,30 @@ export const TreeCanvas = React.memo(function TreeCanvas({
   });
 
   // Single-tap gesture for node detection (separate from double-tap in usePanZoom)
-  const tapGesture = useMemo(() => {
-    const { Tap } = require('react-native-gesture-handler').Gesture;
-    return Tap()
-      .maxDuration(250)
-      .onEnd((event: { x: number; y: number }) => {
-        handleTap(event.x, event.y);
-      });
-  }, [handleTap]);
+  const tapGesture = useMemo(
+    () =>
+      Gesture.Tap()
+        .maxDuration(250)
+        .onEnd((event: { x: number; y: number }) => {
+          handleTap(event.x, event.y);
+        }),
+    [handleTap],
+  );
 
-  const longPressGesture = useMemo(() => {
-    const { LongPress } = require('react-native-gesture-handler').Gesture;
-    return LongPress()
-      .minDuration(500)
-      .onEnd((event: { x: number; y: number }) => {
-        handleLongPress(event.x, event.y);
-      });
-  }, [handleLongPress]);
+  const longPressGesture = useMemo(
+    () =>
+      Gesture.LongPress()
+        .minDuration(500)
+        .onEnd((event: { x: number; y: number }) => {
+          handleLongPress(event.x, event.y);
+        }),
+    [handleLongPress],
+  );
 
   // Compose all gestures: pan+pinch simultaneous, plus tap and long-press
   const composedGesture = useMemo(() => {
-    const { Simultaneous, Exclusive } =
-      require('react-native-gesture-handler').Gesture;
-    const tapGestures = Exclusive(longPressGesture, tapGesture);
-    return Simultaneous(gesture, tapGestures);
+    const tapGestures = Gesture.Exclusive(longPressGesture, tapGesture);
+    return Gesture.Simultaneous(gesture, tapGestures);
   }, [gesture, tapGesture, longPressGesture]);
 
   const animatedStyle = useAnimatedStyle(() => ({
